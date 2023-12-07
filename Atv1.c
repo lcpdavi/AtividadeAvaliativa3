@@ -4,35 +4,33 @@
 
 // Definindo a estrutura do produto
 typedef struct{
-    int codigo;
+    int codigo, quantidade;
     char descricao[50];
-    int quantidade;
     float valor;
-} Produto;
+}Produto;
 
-// Definindo a estrutura da lista de estoque
+// Lista de estoque
 typedef struct{
     Produto *produtos;
     int tamanho;
-} Estoque;
+}Estoque;
 
-// Funcao para inicializar o estoque
+// Iniciar estoque
 void inicializarEstoque(Estoque *estoque){
     estoque->produtos = NULL;
     estoque->tamanho = 0;
 }
-
-// Funcao para adicionar um novo produto ao estoque
+// Adicionar produto novo
 void adicionarProduto(Estoque *estoque){
     Produto novoProduto;
 
     printf("Informe o codigo do produto:\n");
     scanf("%d", &novoProduto.codigo);
-    printf("Informe a descricao do produto: ");
+    printf("Informe a descricao do produto:");
     scanf(" %[^\n]", novoProduto.descricao);
-    printf("Informe a quantidade do produto: ");
+    printf("Informe a quantidade do produto:");
     scanf("%d", &novoProduto.quantidade);
-    printf("Informe o valor do produto: ");
+    printf("Informe o valor do produto:");
     scanf("%f", &novoProduto.valor);
 
     estoque->tamanho++;
@@ -41,11 +39,10 @@ void adicionarProduto(Estoque *estoque){
 
     printf("Produto cadastrado com sucesso!\n");
 }
-
-// Funcao para imprimir o relatório de produtos
+// Imprimir relatorio dos produtos
 void imprimirRelatorio(Estoque *estoque){
     printf("Relatorio de Produtos:\n");
-    for (int i = 0; i < estoque->tamanho; i++) {
+    for(int i = 0; i < estoque->tamanho; i++) {
         printf("Codigo: %d\n", estoque->produtos[i].codigo);
         printf("Descricao: %s\n", estoque->produtos[i].descricao);
         printf("Quantidade: %d\n", estoque->produtos[i].quantidade);
@@ -53,15 +50,14 @@ void imprimirRelatorio(Estoque *estoque){
         printf("\n\n");
     }
 }
-
-// Funcao para pesquisar um produto pelo codigo
+// Pesquisar pelo codigo
 void pesquisarProduto(Estoque *estoque){
     int codigo;
     printf("Informe o codigo do produto a ser pesquisado: ");
     scanf("%d", &codigo);
 
-    for (int i = 0; i < estoque->tamanho; i++){
-        if (estoque->produtos[i].codigo == codigo){
+    for(int i = 0; i < estoque->tamanho; i++){
+        if(estoque->produtos[i].codigo == codigo){
             printf("Produto encontrado:\n");
             printf("Codigo: %d\n", estoque->produtos[i].codigo);
             printf("Descricao: %s\n", estoque->produtos[i].descricao);
@@ -73,17 +69,16 @@ void pesquisarProduto(Estoque *estoque){
 
     printf("Produto nao encontrado.\n");
 }
-
-// Funcao para remover um produto do estoque
+// Remover produto do estoque
 void removerProduto(Estoque *estoque){
     int codigo;
     printf("Informe o codigo do produto a ser removido: ");
     scanf("%d", &codigo);
 
-    for (int i = 0; i < estoque->tamanho; i++){
-        if (estoque->produtos[i].codigo == codigo){
-            // Remove o produto da lista
-            for (int j = i; j < estoque->tamanho - 1; j++){
+    for(int i = 0; i < estoque->tamanho; i++){
+        if(estoque->produtos[i].codigo == codigo){
+            // Remover o produto da lista
+            for(int j = i; j < estoque->tamanho - 1; j++){
                 estoque->produtos[j] = estoque->produtos[j + 1];
             }
             estoque->tamanho--;
@@ -95,14 +90,12 @@ void removerProduto(Estoque *estoque){
 
     printf("Produto nao encontrado.\n");
 }
-
-// Funcao para liberar a memória alocada para o estoque
+// Liberar memoria que esta dentro do estoque
 void liberarEstoque(Estoque *estoque){
     free(estoque->produtos);
     estoque->tamanho = 0;
 }
-
-// Funcao principal (menu)
+// Menu
 int main(){
     Estoque estoque;
     inicializarEstoque(&estoque);
@@ -117,10 +110,10 @@ int main(){
         printf("4. Remover Produto.\n");
         printf("0. Sair.\n");
 
-        printf("Escolha uma opcao: ");
+        printf("Escolha uma opcao:");
         scanf("%d", &opcao);
 
-        switch (opcao){
+        switch(opcao){
             case 1:
                 adicionarProduto(&estoque);
                 break;
@@ -139,7 +132,7 @@ int main(){
             default:
                 printf("Opção invalida. Tente novamente.\n");
         }
-    } while (opcao != 0);
+    }while(opcao != 0);
     liberarEstoque(&estoque);
     return 0;
 }
