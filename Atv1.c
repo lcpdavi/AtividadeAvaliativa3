@@ -24,14 +24,19 @@ void inicializarEstoque(Estoque *estoque){
 void adicionarProduto(Estoque *estoque){
     Produto novoProduto;
 
+    fflush(stdin);
     printf("Informe o codigo do produto:\n");
     scanf("%d", &novoProduto.codigo);
-    printf("Informe a descricao do produto:");
-    scanf(" %[^\n]", novoProduto.descricao);
-    printf("Informe a quantidade do produto:");
+    fflush(stdin);
+    printf("Informe a descricao do produto:\n");
+    scanf("%s", novoProduto.descricao);
+    fflush(stdin);
+    printf("Informe a quantidade do produto:\n");
     scanf("%d", &novoProduto.quantidade);
-    printf("Informe o valor do produto:");
+    fflush(stdin);
+    printf("Informe o valor do produto:\n");
     scanf("%f", &novoProduto.valor);
+    fflush(stdin);
 
     estoque->tamanho++;
     estoque->produtos = realloc(estoque->produtos, estoque->tamanho * sizeof(Produto));
@@ -108,9 +113,9 @@ int main(){
         printf("2. Imprimir Relatorio.\n");
         printf("3. Pesquisar Produto.\n");
         printf("4. Remover Produto.\n");
-        printf("0. Sair.\n");
+        printf("0. Sair.\n\n");
 
-        printf("Escolha uma opcao:");
+        printf("Escolha uma opcao:\n");
         scanf("%d", &opcao);
 
         switch(opcao){
